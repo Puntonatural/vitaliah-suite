@@ -11,7 +11,7 @@ exports.handler = async (event) => {
   try {
     const hoy = new Date();
     const hoyStr = hoy.toISOString().slice(0, 10);
-    const since = new Date(hoy.getFullYear(), hoy.getMonth() - 6, 1);
+    const since = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
     const sinceStr = since.toISOString().slice(0, 10);
 
     const atrasadas = await searchRead('purchase.order', [
