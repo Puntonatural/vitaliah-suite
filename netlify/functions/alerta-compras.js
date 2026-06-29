@@ -9,23 +9,29 @@ function fmtCOP(n) {
 
 exports.handler = async (event) => {
   try {
-    const hoyStr = new Date().toISOString().slice(0, 10);
+    const hoy = new Date();
+    const hoyStr = hoy.toISOString().slice(0, 10);
+    const since = new Date(hoy.getFullYear(), hoy.getMonth() - 6, 1);
+    const sinceStr = since.toISOString().slice(0, 10);
 
     const atrasadas = await searchRead('purchase.order', [
-      ['state', '=', 'purchase'],
+      ['state', 'in', ['purchase', 'done']],
       ['receipt_status', '=', 'pending'],
-      ['date_planned', '<', hoyStr]
+      ['date_planned', '<', hoyStr],
+      ['date_approve', '>=', sinceStr]
     ], ['name', 'partner_id', 'amount_total', 'date_planned'], { order: 'date_planned asc', limit: 500 });
 
     const sinFacturar = await searchCount('purchase.order', [
-      ['state', '=', 'purchase'],
+      ['state', 'in', ['purchase', 'done']],
       ['receipt_status', '=', 'full'],
-      ['invoice_status', '=', 'to invoice']
+      ['invoice_status', '=', 'to invoice'],
+      ['date_approve', '>=', sinceStr]
     ]);
 
     const pendientes = await searchCount('purchase.order', [
-      ['state', '=', 'purchase'],
-      ['receipt_status', '=', 'pending']
+      ['state', 'in', ['purchase', 'done']],
+      ['receipt_status', '=', 'pending'],
+      ['date_approve', '>=', sinceStr]
     ]);
 
     let valorAtrasadas = 0;
