@@ -1,5 +1,11 @@
 [build]
   publish = "."
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+  # Include lib/ in the bundle
+  included_files = ["netlify/functions/lib/**"]
 
 [[headers]]
   for = "/*"
@@ -7,3 +13,16 @@
     X-Frame-Options = "SAMEORIGIN"
     X-Content-Type-Options = "nosniff"
     Cache-Control = "public, max-age=0, must-revalidate"
+
+# Scheduled functions run at 7am Colombia (UTC-5 = 12:00 UTC)
+[functions."alerta-inventario"]
+  schedule = "0 12 * * *"
+
+[functions."alerta-ventas"]
+  schedule = "0 12 * * *"
+
+[functions."alerta-compras"]
+  schedule = "0 12 * * *"
+
+[functions."alerta-despachos"]
+  schedule = "0 12 * * *"
