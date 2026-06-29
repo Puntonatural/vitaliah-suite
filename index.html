@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0d4a2f">
+<title>Vitaliah Suite</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f0f5f1;
+  --panel: #ffffff;
+  --ink: #1a1a1a;
+  --ink-soft: #5a5a5a;
+  --ink-faint: #9a9a9a;
+  --green-dark: #0d4a2f;
+  --green: #1a7a4a;
+  --green-light: #2ecc71;
+  --green-pale: #d4edda;
+  --line: #e0ddd4;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+  --shadow-hover: 0 4px 12px rgba(0,0,0,0.08), 0 8px 28px rgba(0,0,0,0.06);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+.topbar {
+  background: var(--green-dark);
+  padding: 18px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 12px rgba(13,74,47,0.3);
+}
+
+.topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.topbar-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--green-light);
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 18px;
+  color: #fff;
+  letter-spacing: -0.5px;
+}
+
+.topbar h1 {
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.topbar-sub {
+  color: rgba(255,255,255,0.5);
+  font-size: 11px;
+  margin-top: 2px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.topbar-status {
+  color: var(--green-light);
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.topbar-status::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green-light);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.shell {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 24px 60px;
+}
+
+.section-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+  padding-left: 4px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 14px;
+  margin-bottom: 40px;
+}
+
+.app {
+  background: var(--panel);
+  border-radius: 14px;
+  padding: 24px 20px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--shadow);
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  border: 1px solid transparent;
+  position: relative;
+}
+
+.app:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--green-pale);
+}
+
+.app:active {
+  transform: translateY(-1px);
+}
+
+.app-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  font-size: 28px;
+}
+
+.app-name {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+.app-desc {
+  font-size: 11px;
+  color: var(--ink-faint);
+  line-height: 1.4;
+}
+
+.app .badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 9px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badge-live {
+  background: #d4edda;
+  color: #1a7a4a;
+}
+
+.badge-soon {
+  background: #f0f0f0;
+  color: #999;
+}
+
+.app.soon {
+  opacity: 0.5;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* Icon colors */
+.ic-despachos { background: #e8f5e9; color: #2e7d32; }
+.ic-inventario { background: #fff3e0; color: #e65100; }
+.ic-compras { background: #e3f2fd; color: #1565c0; }
+.ic-cuotas { background: #f3e5f5; color: #7b1fa2; }
+.ic-ruteros { background: #fce4ec; color: #c62828; }
+.ic-calidad { background: #e0f2f1; color: #00695c; }
+.ic-produccion { background: #fff8e1; color: #f57f17; }
+.ic-finanzas { background: #efebe9; color: #4e342e; }
+
+.footer {
+  text-align: center;
+  padding: 24px;
+  font-size: 11px;
+  color: var(--ink-faint);
+  border-top: 1px solid var(--line);
+  margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .app { padding: 18px 14px; }
+  .app-icon { width: 52px; height: 52px; font-size: 24px; }
+  .topbar { padding: 14px 16px; }
+  .topbar h1 { font-size: 18px; }
+  .shell { padding: 24px 14px 40px; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-brand">
+    <div class="topbar-logo">V</div>
+    <div>
+      <h1>Vitaliah Suite</h1>
+      <div class="topbar-sub">Dashboards & herramientas internas</div>
+    </div>
+  </div>
+  <div class="topbar-status">Conectado a Odoo</div>
+</div>
+
+<div class="shell">
+
+  <div class="section-title">Operaciones</div>
+  <div class="grid">
+
+    <a href="https://despachos.vitaliah.co/" class="app" target="_blank">
+      <span class="badge badge-live">En vivo</span>
+      <div class="app-icon ic-despachos">🚚</div>
+      <div class="app-name">Despachos</div>
+      <div class="app-desc">Seguimiento de pedidos, lead time y cumplimiento de despachos</div>
+    </a>
+
+    <a href="https://repo.inventario.vitaliah.co/" class="app" target="_blank">
+      <span class="badge badge-live">En vivo</span>
+      <div class="app-icon ic-inventario">📦</div>
+      <div class="app-name">Inventario</div>
+      <div class="app-desc">Reposición, quiebres de stock, rotación y alertas de inventario</div>
+    </a>
+
+    <a href="https://compras.vitaliah.co/apps/supply-chain/" class="app" target="_blank">
+      <span class="badge badge-live">En vivo</span>
+      <div class="app-icon ic-compras">🛒</div>
+      <div class="app-name">Compras</div>
+      <div class="app-desc">Órdenes de compra, atrasos, proveedores y facturación</div>
+    </a>
+
+    <a href="https://ruteros.vitaliah.co/" class="app" target="_blank">
+      <span class="badge badge-live">En vivo</span>
+      <div class="app-icon ic-ruteros">🗺️</div>
+      <div class="app-name">Ruteros</div>
+      <div class="app-desc">Gestión de rutas comerciales y seguimiento de entregas</div>
+    </a>
+
+  </div>
+
+  <div class="section-title">Ventas & Comercial</div>
+  <div class="grid">
+
+    <a href="https://cuotas.vitaliah.co/" class="app" target="_blank">
+      <span class="badge badge-live">En vivo</span>
+      <div class="app-icon ic-cuotas">📊</div>
+      <div class="app-name">Cuotas de Ventas</div>
+      <div class="app-desc">Cumplimiento de cuotas por vendedor, facturación mensual</div>
+    </a>
+
+    <div class="app soon">
+      <span class="badge badge-soon">Próximo</span>
+      <div class="app-icon ic-finanzas">💰</div>
+      <div class="app-name">Estados Financieros</div>
+      <div class="app-desc">Reportes financieros y dashboards de alto valor</div>
+    </div>
+
+  </div>
+
+  <div class="section-title">Calidad & Producción</div>
+  <div class="grid">
+
+    <div class="app soon">
+      <span class="badge badge-soon">Próximo</span>
+      <div class="app-icon ic-calidad">✅</div>
+      <div class="app-name">Calidad</div>
+      <div class="app-desc">Control de calidad, registros sanitarios y auditorías</div>
+    </div>
+
+    <div class="app soon">
+      <span class="badge badge-soon">Próximo</span>
+      <div class="app-icon ic-produccion">⚙️</div>
+      <div class="app-name">Producción</div>
+      <div class="app-desc">Planificación de producción y seguimiento de órdenes</div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    Vitaliah SAS · Suite interna · Datos en tiempo real desde Odoo
+  </div>
+
+</div>
+
+</body>
+</html>
