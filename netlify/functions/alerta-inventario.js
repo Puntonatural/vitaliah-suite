@@ -4,9 +4,6 @@ const { sendCard } = require('./lib/gchat');
 const WEBHOOK = process.env.GCHAT_INVENTARIO;
 const PREFIJOS_COMPRA = ['MAP', 'ENV', 'ETI', 'CAJ', 'CUP', 'BOL', 'LAM', 'LIN', 'TER'];
 
-// Corrupt UoM fix (same as dashboard)
-const CORRUPT_UOM_ID = 13;
-
 exports.handler = async (event) => {
   try {
     const records = await searchRead('stock.warehouse.orderpoint', [], [
@@ -15,26 +12,15 @@ exports.handler = async (event) => {
       'location_id', 'route_id'
     ]);
 
-    const corruptIds = new Set(
-      await searchRead('product.product', [['uom_id', '=', CORRUPT_UOM_ID]], ['id'], { context: { active_test: false } })
-        .then(r => r.map(p => p.id))
-    );
-
     let negativos = 0, pronNeg = 0, bajoMin = 0, sinRuta = 0, total = records.length;
     const urgentes = [];
 
     for (const r of records) {
-      const productId = r.product_id ? r.product_id[0] : 0;
       const nombre = r.product_id ? r.product_id[1] : '';
       const aMano = r.qty_on_hand || 0;
-      let pronostico = r.qty_forecast || 0;
+      const pronostico = r.qty_forecast || 0;
       const min = r.product_min_qty || 0;
       const ruta = r.route_id ? r.route_id[1] : '';
-
-      if (corruptIds.has(productId)) {
-        const net = aMano - pronostico;
-        pronostico = aMano - (net / 1000);
-      }
 
       if (aMano < 0) {
         negativos++;
